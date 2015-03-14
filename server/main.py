@@ -20,6 +20,7 @@ import sys
 import logging
 import time
 import platform
+import os
 from .miniboa import TelnetServer
 from .moontools import Tools as tools
 from . import moonnet
@@ -32,7 +33,15 @@ from . import settings
 class Main: #the main server class
     def __init__(self, debug, loglevel, makesettings, settingpath):
 
-        version = 0.1 # server version number
+        version = 0.101 # server version number
+        logdir = os.getcwd()
+        if os.name == "nt":
+            logdir = os.path.join(logdir, "logs\\")
+        else:
+            logdir = os.path.join(logdir, "logs/")
+
+        if not os.path.exists(logdir):
+            os.mkdir(logdir)
 
         # breaking up sessions in logfile
         logging.basicConfig(filename='logs/scorched_moon_server.log',level=logging.DEBUG,format='%(message)s')
