@@ -33,7 +33,7 @@ from . import settings
 class Main: #the main server class
     def __init__(self, debug, loglevel, makesettings, settingpath):
 
-        version = 0.101 # server version number
+        version = 0.102 # server version number
         logdir = os.getcwd()
         if os.name == "nt":
             logdir = os.path.join(logdir, "logs\\")
@@ -133,6 +133,12 @@ class Main: #the main server class
                         cmd_var = ""
                     if cmd == "exit": #command to disconnect client
                         logging.info("{} disconnected intentionally" .format(client.address))
+                        client.send("goodbye")
+                        self.server.poll()
+                        client.active = False
+                    elif cmd == "help": #command if someone manually connects and doesn't know what they're doing
+                        logging.info("Help command recieved by {}" .format(client.address")
+                        client.send("You appear to be lost and don't know what you are doing. Disconnecting you from server.")
                         client.send("goodbye")
                         self.server.poll()
                         client.active = False
