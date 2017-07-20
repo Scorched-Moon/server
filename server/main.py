@@ -137,7 +137,7 @@ class Main: #the main server class
                         self.server.poll()
                         client.active = False
                     elif cmd == "help": #command if someone manually connects and doesn't know what they're doing
-                        logging.info("Help command recieved by {}" .format(client.address")
+                        logging.info("Help command recieved by {}" .format(client.address))
                         client.send("You appear to be lost and don't know what you are doing. Disconnecting you from server.")
                         client.send("goodbye")
                         self.server.poll()
