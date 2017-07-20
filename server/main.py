@@ -33,7 +33,7 @@ from . import settings
 class Main: #the main server class
     def __init__(self, debug, loglevel, makesettings, settingpath):
 
-        version = 0.102 # server version number
+        version = 0.103 # server version number
         logdir = os.getcwd()
         if os.name == "nt":
             logdir = os.path.join(logdir, "logs\\")
@@ -201,7 +201,7 @@ class Main: #the main server class
                 self.server.poll()
                 for client in self.clientlist: # disconnecting clients before shutdown
                     logging.debug("goodbye {}" .format(client.address))
-                    client.send("disconnecting")
+                    client.send("goodbye")
                     self.server.poll()
                     client.active = False
                 self.settings.runserver = False
