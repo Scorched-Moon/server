@@ -1,4 +1,4 @@
-"""Copyright 2014:
+"""Copyright 2017:
     Kevin Clement
 
 This program is free software; you can redistribute it and/or modify
@@ -19,14 +19,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 import logging
 import os, sys
 import string
+from .moontools import Tools as tools
 
 # this file handles all settings
 
 class Settings():
     def __init__(self):
         logging.debug("")
-        self.version = 0.00
-        self.settingsversion = 0.1 #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
+        self.version = "0.00.0"
+        self.settingsversion = "0.10.5" #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
         self.debug = True
         self.runserver = True
         self.shutdown_command = False
@@ -46,12 +47,15 @@ class Settings():
                     continue
                 input_array = line.split("=", 1)
                 if input_array[0].strip() == "version":
-                    if float(input_array[1].strip()) < self.settingsversion: #checking file version to avoid incompatibilities
+                    fileversion = input_array[1].strip()
+                    if tools.checkversion(fileversion, self.settingsversion) == False:
                         logging.critical("Obsolete settings file detected! aborting startup")
                         logging.critical("Please create new file with -c option")
                         print("Obsolete settings file detected! Aborting startup")
                         print("Please create new file with -c option")
                         sys.exit("Invalid settings") #system ends immediately if it detects file with possibly incompatible settings
+                    else:
+                        logging.debug("Valid settings file detected")
                 elif input_array[0].strip() == "debug":
                     if input_array[1].strip() == "True":
                         self.debug = True
@@ -64,6 +68,7 @@ class Settings():
             settingsfile.close()
         else:
             logging.warning("settings.conf file not found, recommend running Scorched Moon with -c option")
+            print("settings.conf file not found, recommend running Scorched Moon with -c option")
 
 
     def create_settings(self, version):
