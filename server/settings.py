@@ -27,7 +27,7 @@ class Settings():
     def __init__(self):
         logging.debug("")
         self.version = "0.00.0"
-        self.settingsversion = "0.10.5" #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
+        self.minsettingsversion = "0.10.5" #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
         self.debug = True
         self.runserver = True
         self.shutdown_command = False
@@ -48,7 +48,7 @@ class Settings():
                 input_array = line.split("=", 1)
                 if input_array[0].strip() == "version":
                     fileversion = input_array[1].strip()
-                    if tools.checkversion(fileversion, self.settingsversion) == False:
+                    if tools.checkversion(fileversion, self.minsettingsversion) == False:
                         logging.critical("Obsolete settings file detected! aborting startup")
                         logging.critical("Please create new file with -c option")
                         print("Obsolete settings file detected! Aborting startup")

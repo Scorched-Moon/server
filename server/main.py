@@ -33,7 +33,7 @@ from . import settings
 class Main: #the main server class
     def __init__(self, debug, loglevel, makesettings, settingpath):
 
-        version = "0.10.5" # server version number
+        version = "0.10.6" # server version number
         logdir = os.getcwd()
         if os.name == "nt":
             logdir = os.path.join(logdir, "logs\\")

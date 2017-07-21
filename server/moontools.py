@@ -38,8 +38,6 @@ class Tools:
 
     def checkversion(version1, version2): #compares version numbers, returns true version1 is equal or higher, false is version2 is higher
         logging.debug("")
-        print(version1)
-        print(version2)
         majorversion1, minorversion1, revision1 = (int(temp) for temp in version1.split(".", 3))
         majorversion2, minorversion2, revision2 = (int(temp) for temp in version2.split(".", 3))
         if majorversion2 > majorversion1:
