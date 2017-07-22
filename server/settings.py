@@ -67,8 +67,10 @@ class Settings():
                     self.boottime = int(input_array[1].strip())
             settingsfile.close()
         else:
-            logging.warning("settings.conf file not found, recommend running Scorched Moon with -c option")
-            print("settings.conf file not found, recommend running Scorched Moon with -c option")
+            logging.warning("settings.conf file not found, run Scorched Moon with -c option to create default file")
+            print("settings.conf file not found, run Scorched Moon with -c option to create default file")
+            print("Scorched Moon server has been successfully shutdown")
+            sys.exit()
 
 
     def create_settings(self, version):
